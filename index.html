@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fahim Abdulla — Game Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07080d;--bg2:#0c0e16;--bg3:#101320;--panel:#141828;
+  --gold:#e8b84b;--gold2:#f7d07a;--goldf:rgba(232,184,75,.12);
+  --text:#dde3ef;--sub:#7a8599;
+  --border:rgba(232,184,75,.14);--line:rgba(255,255,255,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:15px;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.65;overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+#cur,#cur2{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur{width:10px;height:10px;background:var(--gold);transition:transform .15s;}
+#cur2{width:32px;height:32px;border:1px solid rgba(232,184,75,.35);}
+
+/* NOISE */
+body::after{content:'';position:fixed;inset:0;opacity:.45;pointer-events:none;z-index:9990;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 56px;
+  background:rgba(7,8,13,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-brand{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{display:block;padding:0 15px;height:60px;line-height:60px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--sub);text-decoration:none;text-transform:uppercase;transition:color .2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:15px;right:15px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .25s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--bg);background:var(--gold);text-decoration:none;padding:8px 20px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s;}
+.nav-cta:hover{background:var(--gold2);}
+
+/* LAYOUT */
+.wrap{max-width:1200px;margin:0 auto;padding:0 56px;}
+section{padding:96px 0;position:relative;}
+.s-alt{background:var(--bg2);}
+.s-dark{background:var(--bg3);}
+
+/* SECTION HEADERS */
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:48px;}
+.eyebrow-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);}
+.eyebrow-title{font-family:'Orbitron',monospace;font-size:clamp(20px,2.5vw,30px);font-weight:700;color:#fff;}
+.eyebrow-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.rl{opacity:0;transform:translateX(-20px);transition:opacity .65s ease,transform .65s ease;}
+.r.in,.rl.in{opacity:1;transform:none;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 400px;align-items:center;gap:60px;
+  max-width:1200px;margin:0 auto;padding:100px 56px 80px;position:relative;}
+.hero-glow{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 600px 500px at 80% 15%,rgba(232,184,75,.05) 0%,transparent 65%),
+             radial-gradient(ellipse 500px 400px at 5% 85%,rgba(62,207,142,.04) 0%,transparent 65%);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:3px;color:var(--gold);text-transform:uppercase;padding:6px 14px;
+  border:1px solid var(--border);background:var(--goldf);margin-bottom:20px;}
+h1.hn{font-family:'Orbitron',monospace;font-size:clamp(44px,5.5vw,76px);font-weight:900;color:#fff;
+  line-height:1.0;margin-bottom:6px;letter-spacing:-1px;}
+h1.hn em{color:var(--gold);font-style:normal;}
+.hero-role{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--sub);
+  text-transform:uppercase;margin-bottom:26px;}
+.hero-bio{font-size:14.5px;color:#9aa5b8;line-height:1.85;max-width:520px;margin-bottom:32px;}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text);
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);padding:5px 13px;text-transform:uppercase;
+  transition:all .2s;cursor:default;}
+.chip:hover{border-color:var(--gold);color:var(--gold);background:var(--goldf);}
+.cta{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;padding:13px 26px;transition:all .22s;cursor:pointer;border:none;display:inline-block;}
+.btn-gold{background:var(--gold);color:var(--bg);clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-out{background:transparent;color:var(--gold);border:1px solid rgba(232,184,75,.35);}
+.btn-out:hover{background:var(--goldf);border-color:var(--gold);}
+
+/* HERO CARD */
+.hcard{position:relative;z-index:2;}
+.avatar-wrap{position:relative;}
+.avatar-box{
+  width:100%;aspect-ratio:.78;background:var(--panel);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  clip-path:polygon(20px 0%,100% 0%,100% calc(100% - 20px),calc(100% - 20px) 100%,0% 100%,0% 20px);
+}
+/* FA watermark — hidden when image present */
+.avatar-box::before{
+  content:'FA';font-family:'Orbitron',monospace;font-size:110px;font-weight:900;
+  color:rgba(232,184,75,.07);letter-spacing:-5px;pointer-events:none;
+  position:absolute;z-index:0;
+}
+/* Profile image */
+.avatar-photo{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;z-index:1;
+  transition:transform .6s ease, filter .4s ease;
+  filter:brightness(.92) saturate(.9);
+}
+.hcard:hover .avatar-photo{transform:scale(1.03);filter:brightness(1) saturate(1);}
+/* subtle vignette over photo */
+.avatar-photo-vignette{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    linear-gradient(to bottom, rgba(7,8,13,.15) 0%, transparent 30%, transparent 55%, rgba(7,8,13,.75) 100%),
+    linear-gradient(to right, rgba(7,8,13,.2) 0%, transparent 20%, transparent 80%, rgba(7,8,13,.2) 100%);
+}
+.avatar-gradient{position:absolute;inset:-1px;z-index:-1;
+  background:linear-gradient(140deg,var(--gold) 0%,transparent 40%,transparent 60%,rgba(62,207,142,.3) 100%);
+  clip-path:polygon(20px 0%,100% 0%,100% calc(100% - 20px),calc(100% - 20px) 100%,0% 100%,0% 20px);}
+.avatar-stats{position:absolute;bottom:0;left:0;right:0;padding:18px 20px;z-index:3;
+  background:linear-gradient(transparent,rgba(7,8,13,.94));}
+.stat-row{display:flex;gap:6px;}
+.stat-item{flex:1;background:rgba(232,184,75,.07);border:1px solid var(--border);padding:9px 8px;text-align:center;}
+.sv{font-family:'Orbitron',monospace;font-size:17px;font-weight:900;color:var(--gold);display:block;line-height:1;}
+.sl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--sub);
+  text-transform:uppercase;margin-top:4px;display:block;}
+.ftags{position:absolute;top:16px;right:-16px;display:flex;flex-direction:column;gap:7px;}
+.ftag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--gold);
+  border:1px solid var(--border);background:rgba(7,8,13,.92);padding:5px 11px;text-transform:uppercase;
+  animation:fy 3s ease-in-out infinite;}
+.ftag:nth-child(2){animation-delay:.9s;}
+.ftag:nth-child(3){animation-delay:1.8s;}
+@keyframes fy{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* EXPERTISE */
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.sc{background:var(--bg2);padding:26px 28px;position:relative;overflow:hidden;transition:background .25s;}
+.s-alt .sc{background:var(--bg3);}
+.sc:hover{background:var(--panel);}
+.sc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);
+  transform:scaleY(0);transform-origin:bottom;transition:transform .3s;}
+.sc:hover::before{transform:scaleY(1);}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.sc-label{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;}
+.sc-num{font-family:'Orbitron',monospace;font-size:24px;font-weight:900;color:rgba(232,184,75,.16);line-height:1;}
+.sc-desc{font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:16px;}
+.bt{height:3px;background:rgba(255,255,255,.07);}
+.bf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:44px;}
+.timeline::before{
+  content:'';position:absolute;
+  left:8px;top:18px;bottom:18px;width:2px;
+  background:linear-gradient(180deg,var(--gold) 0%,rgba(232,184,75,.12) 100%);
+}
+.tj{position:relative;padding-bottom:52px;opacity:0;transform:translateX(-16px);transition:opacity .6s,transform .6s;}
+.tj.in{opacity:1;transform:none;}
+.tj:last-child{padding-bottom:0;}
+.tj::before{
+  content:'';position:absolute;
+  left:-41px;top:12px;
+  width:10px;height:10px;
+  border:2px solid var(--gold);background:var(--bg);
+  transform:rotate(45deg);
+  box-shadow:0 0 8px rgba(232,184,75,.3);
+}
+.tj-date{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:5px;}
+.tj-role{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;}
+.tj-co{font-size:13px;font-weight:500;color:var(--sub);letter-spacing:.5px;margin-bottom:10px;}
+.tj-desc{font-size:13px;color:#6e7d94;line-height:1.8;
+  border-left:2px solid rgba(232,184,75,.12);padding-left:14px;max-width:640px;}
+
+/* SKILL COLUMNS */
+.scols{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
+.sg{padding:26px 22px;}
+.s-alt .sg{background:var(--bg3);}
+.sg-title{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:2px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;color:var(--text);
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:4px 10px;
+  transition:all .2s;cursor:default;}
+.tag:hover{background:var(--goldf);border-color:var(--border);color:var(--gold);}
+
+/* BLOGS */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:36px;}
+.blog-card{background:var(--bg2);overflow:hidden;transition:background .25s;text-decoration:none;display:block;}
+.blog-card:hover{background:var(--panel);}
+.blog-thumb{height:180px;position:relative;overflow:hidden;background:var(--bg3);display:block;}
+.blog-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease,filter .4s ease;filter:brightness(.75) saturate(.7);}
+.blog-card:hover .blog-thumb img{transform:scale(1.05);filter:brightness(.9) saturate(.85);}
+.blog-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,rgba(7,8,13,.7) 100%);pointer-events:none;}
+.blog-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(7,8,13,.75);border:2px solid rgba(232,184,75,.6);display:flex;align-items:center;justify-content:center;transition:all .25s;backdrop-filter:blur(4px);}
+.blog-play::after{content:'';display:block;border-style:solid;border-width:8px 0 8px 16px;border-color:transparent transparent transparent var(--gold);margin-left:3px;}
+.blog-card:hover .blog-play{background:var(--gold);border-color:var(--gold);transform:translate(-50%,-50%) scale(1.12);}
+.blog-card:hover .blog-play::after{border-left-color:var(--bg);}
+.blog-yt-badge{position:absolute;bottom:10px;right:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#fff;text-transform:uppercase;background:rgba(200,0,0,.85);padding:3px 8px;}
+.blog-body{padding:20px 22px;}
+.blog-kicker{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:7px;}
+.blog-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:9px;}
+.blog-text{font-size:12.5px;color:var(--sub);line-height:1.75;}
+
+.decon{background:var(--panel);border:1px solid var(--border);padding:34px;position:relative;overflow:hidden;}
+.decon::before{content:'2025';position:absolute;right:-15px;top:50%;transform:translateY(-50%);
+  font-family:'Orbitron',monospace;font-size:150px;font-weight:900;color:rgba(232,184,75,.03);pointer-events:none;line-height:1;}
+.decon-title{font-family:'Orbitron',monospace;font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;}
+.decon-text{font-size:13.5px;color:var(--sub);max-width:720px;line-height:1.8;margin-bottom:22px;}
+/* Decon image strip */
+.decon-imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px;}
+.decon-img-slot{
+  position:relative;overflow:hidden;
+  aspect-ratio:16/10;background:var(--bg3);
+  border:1px solid var(--border);cursor:zoom-in;
+}
+.decon-img-slot img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.85) saturate(.75);
+  transition:transform .45s ease, filter .35s ease;
+}
+.decon-img-slot:hover img{transform:scale(1.05);filter:brightness(1) saturate(1);}
+.decon-img-slot-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 50%,rgba(7,8,13,.6) 100%);
+}
+/* placeholder */
+.decon-img-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  border:2px dashed rgba(232,184,75,.12);
+  font-family:'JetBrains Mono',monospace;
+}
+.decon-img-placeholder span{font-size:10px;letter-spacing:2px;color:rgba(232,184,75,.3);text-transform:uppercase;}
+.decon-img-placeholder small{font-size:9px;color:rgba(255,255,255,.12);}
+
+/* WIREFRAMES */
+.wf-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+.wf-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.wf-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-bottom:52px;}
+.wf-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);margin-bottom:0;}
+.wc{padding:26px 28px;transition:background .25s;}
+.s-alt .wc{background:var(--bg3);}
+.wc:hover{background:var(--panel);}
+.wc-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:9px;}
+.wc-desc{font-size:13px;color:var(--sub);line-height:1.75;margin-bottom:16px;}
+.mock{background:rgba(255,255,255,.03);border:1px solid var(--line);padding:14px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);line-height:1.9;}
+.mock-h{color:var(--gold);font-size:9px;letter-spacing:2px;margin-bottom:7px;text-transform:uppercase;}
+.mock-btn{display:block;border:1px solid rgba(255,255,255,.1);padding:5px 0;text-align:center;
+  margin:3px 0;font-size:9px;color:rgba(255,255,255,.35);}
+.mock-btn.g{border-color:rgba(232,184,75,.3);color:var(--gold);}
+.mock-2{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:3px 0;}
+.mock-cell{border:1px solid rgba(255,255,255,.08);padding:4px;font-size:8px;text-align:center;}
+
+/* WIREFRAME IMAGE CARDS */
+.wf-img-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-bottom:52px;}
+.wf-img-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);}
+.wf-img-card{background:var(--bg3);overflow:hidden;position:relative;transition:background .25s;}
+.wf-img-card:hover{background:var(--panel);}
+.wf-img-wrap{position:relative;width:100%;height:200px;overflow:hidden;background:var(--bg);cursor:zoom-in;}
+.wf-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease,filter .5s ease;filter:brightness(.75) saturate(.6);}
+.wf-img-card:hover .wf-img-wrap img{transform:scale(1.04);filter:brightness(.9) saturate(.8);}
+.wf-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(7,8,13,.9) 100%);pointer-events:none;}
+.wf-img-badge{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:var(--gold);text-transform:uppercase;
+  background:rgba(7,8,13,.85);border:1px solid var(--border);padding:4px 10px;backdrop-filter:blur(6px);}
+.wf-img-body{padding:20px 22px 22px;}
+.wf-img-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:8px;}
+.wf-img-desc{font-size:12.5px;color:var(--sub);line-height:1.75;margin-bottom:14px;}
+
+/* CAROUSEL */
+.carousel{position:relative;background:var(--bg3);overflow:hidden;border:1px solid var(--border);}
+.carousel-track-wrap{width:100%;overflow:hidden;position:relative;}
+.carousel-track{
+  display:flex;
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.carousel-slide{
+  min-width:100%;height:280px;overflow:hidden;
+  position:relative;flex-shrink:0;background:var(--bg);
+}
+.carousel-slide img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.8) saturate(.65);
+  transition:filter .3s;
+  display:block;
+}
+.carousel-slide-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 45%,rgba(7,8,13,.88) 100%);
+  pointer-events:none;
+}
+/* placeholder slot (when no image) */
+.carousel-slide-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:var(--bg3);border:2px dashed rgba(232,184,75,.15);
+  font-family:'JetBrains Mono',monospace;
+}
+.carousel-slide-placeholder span{font-size:11px;letter-spacing:2px;color:rgba(232,184,75,.3);text-transform:uppercase;}
+.carousel-slide-placeholder small{font-size:10px;color:rgba(255,255,255,.15);}
+/* badge inside carousel */
+.carousel-badge{
+  position:absolute;top:14px;left:14px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:var(--gold);text-transform:uppercase;
+  background:rgba(7,8,13,.88);border:1px solid var(--border);
+  padding:4px 10px;backdrop-filter:blur(8px);z-index:2;
+}
+/* counter badge */
+.carousel-counter{
+  position:absolute;top:14px;right:14px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  letter-spacing:1px;color:rgba(255,255,255,.5);
+  background:rgba(7,8,13,.88);border:1px solid rgba(255,255,255,.08);
+  padding:4px 10px;z-index:2;
+}
+/* prev/next arrows */
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:38px;height:38px;z-index:3;
+  background:rgba(7,8,13,.85);border:1px solid rgba(232,184,75,.3);
+  color:var(--gold);font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s,border-color .2s;
+  backdrop-filter:blur(6px);
+}
+.carousel-btn:hover{background:rgba(232,184,75,.15);border-color:var(--gold);}
+.carousel-btn.prev{left:12px;}
+.carousel-btn.next{right:12px;}
+/* dots */
+.carousel-dots{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 0 4px;
+}
+.carousel-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.15);border:1px solid transparent;
+  cursor:pointer;transition:all .25s;
+}
+.carousel-dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.3);}
+/* thumbnail strip */
+.carousel-thumbs{
+  display:flex;gap:4px;padding:8px 14px 14px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.carousel-thumbs::-webkit-scrollbar{display:none;}
+.carousel-thumb{
+  width:54px;height:38px;flex-shrink:0;
+  overflow:hidden;cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color .2s,opacity .2s;opacity:.45;
+}
+.carousel-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.carousel-thumb.active{border-color:var(--gold);opacity:1;}
+/* card body below carousel */
+.carousel-body{padding:20px 22px 22px;}
+
+/* ACCOMPLISHMENTS */
+.acc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-bottom:1px;}
+.acc-card{overflow:hidden;transition:background .25s;}
+.s-alt .acc-card{background:var(--bg3);}
+.acc-card:hover{background:var(--panel);}
+.acc-thumb{
+  position:relative;overflow:hidden;
+  background:var(--bg3);display:flex;align-items:center;justify-content:center;
+}
+.acc-thumb img{
+  width:100%;height:auto;object-fit:contain;display:block;
+  filter:brightness(.88) saturate(.8);
+  transition:transform .5s ease, filter .4s ease;
+}
+.acc-card:hover .acc-thumb img{transform:scale(1.03);filter:brightness(1) saturate(1);}
+.acc-thumb-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 70%, rgba(7,8,13,.7) 100%);
+  pointer-events:none;
+}
+/* placeholder when no image */
+.acc-thumb-placeholder{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  border:2px dashed rgba(232,184,75,.15);
+  font-family:'JetBrains Mono',monospace;
+}
+.acc-thumb-placeholder span{font-size:11px;letter-spacing:2px;color:rgba(232,184,75,.35);text-transform:uppercase;}
+.acc-thumb-placeholder small{font-size:10px;color:rgba(255,255,255,.15);}
+.acc-body{padding:18px 20px;}
+.acc-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:8px;}
+.acc-text{font-size:12.5px;color:var(--sub);line-height:1.7;}
+
+/* NOTES */
+.notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.np{padding:30px;background:var(--bg2);}
+.np:last-child{background:var(--panel);}
+.np-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--gold);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.nl{list-style:none;}
+.nl li{display:flex;gap:11px;font-size:13px;color:var(--sub);padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,.03);line-height:1.65;}
+.nl li::before{content:'→';color:var(--gold);flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+
+/* DASHBOARDS */
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
+.dash-card{padding:26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:14px;
+  transition:background .25s;position:relative;overflow:hidden;}
+.s-dark .dash-card{background:var(--bg3);}
+.dash-card:hover{background:var(--panel);}
+.dash-card::after{content:'↗';position:absolute;top:18px;right:18px;font-size:16px;color:var(--gold);
+  opacity:0;transform:translateY(4px);transition:all .22s;}
+.dash-card:hover::after{opacity:1;transform:none;}
+.di{width:42px;height:42px;background:var(--goldf);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:19px;}
+.dn{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:.5px;}
+.ds{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.5px;}
+
+/* CODING SKILLS */
+/* CODING SKILLS — redesigned */
+.coding-intro{margin-bottom:48px;}
+.coding-intro-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.coding-intro-text{font-size:14px;color:var(--sub);line-height:1.85;max-width:780px;}
+
+.coding-games{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+.coding-game{background:var(--bg2);overflow:hidden;transition:background .25s;}
+.coding-game:hover{background:var(--panel);}
+
+/* Thumbnail */
+.cg-thumb{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--bg);display:block;text-decoration:none;}
+.cg-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.78);transition:transform .45s ease,filter .35s ease;}
+.cg-thumb:hover img{transform:scale(1.04);filter:brightness(.95);}
+.cg-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(7,8,13,.8) 100%);pointer-events:none;}
+.cg-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(7,8,13,.8);border:2px solid rgba(232,184,75,.55);display:flex;align-items:center;justify-content:center;transition:all .25s;backdrop-filter:blur(4px);}
+.cg-play::after{content:'';border-style:solid;border-width:9px 0 9px 18px;border-color:transparent transparent transparent var(--gold);margin-left:3px;}
+.cg-thumb:hover .cg-play{background:var(--gold);border-color:var(--gold);}
+.cg-thumb:hover .cg-play::after{border-left-color:var(--bg);}
+.cg-yt{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#fff;background:rgba(200,0,0,.85);padding:3px 9px;}
+
+/* Body */
+.cg-body{padding:20px 24px 24px;}
+.cg-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:16px;}
+
+/* Download buttons row */
+.cg-downloads{display:flex;gap:10px;flex-wrap:wrap;}
+.cg-dl{
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  color:var(--gold);text-transform:uppercase;
+  border:1px solid rgba(232,184,75,.3);background:rgba(232,184,75,.06);
+  padding:8px 16px;
+  transition:all .2s;
+}
+.cg-dl:hover{background:rgba(232,184,75,.14);border-color:var(--gold);color:#fff;}
+.cg-dl svg{flex-shrink:0;}
+
+/* GAME MATH CARDS */
+.gmath-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:1px;}
+.gmath-card{background:var(--bg2);padding:28px 26px 26px;position:relative;overflow:hidden;}
+.gmath-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .3s;}
+.gmath-card:hover::before{transform:scaleY(1);}
+.gmath-num{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(232,184,75,.4);text-transform:uppercase;margin-bottom:6px;}
+.gmath-title{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.5px;margin-bottom:6px;}
+.gmath-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.gmath-formula{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold2);background:rgba(232,184,75,.06);border:1px solid rgba(232,184,75,.15);padding:10px 14px;margin-bottom:16px;letter-spacing:.5px;}
+.gmath-desc{font-size:12.5px;color:var(--sub);line-height:1.75;margin-bottom:18px;}
+.gmath-insight{font-size:11.5px;color:rgba(232,184,75,.7);font-style:italic;border-left:2px solid rgba(232,184,75,.3);padding-left:12px;margin-top:14px;}
+
+/* Slider controls */
+.gmath-sliders{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.gmath-slider-row{display:flex;align-items:center;gap:10px;}
+.gmath-slider-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);width:16px;flex-shrink:0;}
+.gmath-slider-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);width:36px;text-align:right;flex-shrink:0;}
+.gmath-slider{flex:1;-webkit-appearance:none;appearance:none;height:3px;background:rgba(255,255,255,.1);outline:none;border-radius:0;}
+.gmath-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--gold);cursor:pointer;border-radius:0;transform:rotate(45deg);}
+.gmath-slider::-moz-range-thumb{width:14px;height:14px;background:var(--gold);cursor:pointer;border:none;border-radius:0;}
+
+/* Canvas */
+.gmath-canvas{width:100%;height:160px;display:block;background:rgba(0,0,0,.25);border:1px solid var(--border);margin-bottom:14px;}
+
+/* Loot table */
+.loot-table{width:100%;border-collapse:collapse;margin-bottom:14px;}
+.loot-table th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--border);text-align:left;}
+.loot-table td{font-size:12px;color:var(--text);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.loot-bar-wrap{width:100%;height:5px;background:rgba(255,255,255,.07);margin-top:3px;}
+.loot-bar{height:100%;transition:width .5s ease;}
+.loot-roll-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--bg);background:var(--gold);border:none;padding:9px 20px;cursor:pointer;transition:background .2s;width:100%;margin-top:4px;}
+.loot-roll-btn:hover{background:var(--gold2);}
+.loot-result{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-align:center;padding:10px;margin-top:8px;border:1px solid var(--border);min-height:38px;transition:all .3s;}
+.loot-result.common{color:#aaa;border-color:#555;}
+.loot-result.rare{color:#4fc3f7;border-color:#4fc3f7;}
+.loot-result.epic{color:#ce93d8;border-color:#ce93d8;}
+.loot-result.legendary{color:var(--gold);border-color:var(--gold);background:rgba(232,184,75,.08);}
+
+/* Reward table */
+.reward-table{width:100%;border-collapse:collapse;margin-bottom:14px;}
+.reward-table th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--border);text-align:left;}
+.reward-table td{font-size:12.5px;color:var(--text);padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;}
+.reward-table tr:hover td{background:rgba(232,184,75,.04);}
+
+/* CONTACT */
+.contact-inner{text-align:center;max-width:600px;margin:0 auto;}
+.c-kicker{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.c-kicker::before,.c-kicker::after{content:'◇';color:var(--sub);}
+.c-headline{font-family:'Orbitron',monospace;font-size:clamp(28px,4vw,50px);font-weight:900;
+  color:#fff;line-height:1.1;margin-bottom:14px;}
+.c-headline span{color:var(--gold);}
+.c-sub{font-size:15px;color:var(--sub);line-height:1.8;margin-bottom:36px;}
+.c-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+.c-link{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:1px;color:var(--text);text-decoration:none;padding:11px 20px;
+  border:1px solid var(--border);background:var(--bg2);transition:all .22s;}
+.c-link:hover{border-color:var(--gold);color:var(--gold);background:var(--goldf);}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56px;
+  display:flex;justify-content:space-between;align-items:center;}
+.f-brand{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold);}
+.f-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:1px;}
+
+/* DIVIDER */
+.div{height:1px;background:linear-gradient(90deg,transparent,rgba(232,184,75,.2),transparent);}
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed;inset:0;z-index:9995;
+  background:rgba(0,0,0,.95);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;
+  backdrop-filter:blur(12px);
+  cursor:zoom-out;
+}
+#lightbox.open{display:flex;}
+#lightbox-img{
+  max-width:92vw;max-height:88vh;
+  object-fit:contain;
+  border:1px solid rgba(232,184,75,.25);
+  box-shadow:0 0 80px rgba(0,0,0,.8);
+  animation:lbIn .25s cubic-bezier(.4,0,.2,1);
+}
+@keyframes lbIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+#lightbox-close{
+  position:absolute;top:20px;right:24px;
+  width:40px;height:40px;
+  background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.35);
+  color:var(--gold);font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+  font-family:'JetBrains Mono',monospace;line-height:1;
+}
+#lightbox-close:hover{background:rgba(232,184,75,.25);}
+#lightbox-caption{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  letter-spacing:2px;color:rgba(232,184,75,.6);text-transform:uppercase;
+}
+#lightbox-nav-prev,#lightbox-nav-next{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;
+  background:rgba(7,8,13,.8);border:1px solid rgba(232,184,75,.3);
+  color:var(--gold);font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+  font-family:'JetBrains Mono',monospace;
+}
+#lightbox-nav-prev{left:20px;}
+#lightbox-nav-next{right:20px;}
+#lightbox-nav-prev:hover,#lightbox-nav-next:hover{background:rgba(232,184,75,.15);}
+/* make carousel slides show pointer */
+.carousel-slide{cursor:zoom-in;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 20px;}.nav-links,.nav-cta{display:none;}
+  .hero{grid-template-columns:1fr;padding:100px 20px 60px;}.hcard{display:none;}
+  .wrap{padding:0 20px;}
+  .skill-grid,.scols,.notes-grid,.acc-grid,.dash-grid,.blog-grid,.wf-2,.wf-3{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:10px;text-align:center;padding:20px;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur2"></div>
+<div class="hero-glow"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="lbClose(event)">
+  <div id="lightbox-close" onclick="lbClose()">✕</div>
+  <button id="lightbox-nav-prev" onclick="lbNav(-1);event.stopPropagation()">‹</button>
+  <img id="lightbox-img" src="" alt=""/>
+  <div id="lightbox-caption"></div>
+  <button id="lightbox-nav-next" onclick="lbNav(1);event.stopPropagation()">›</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Fahim Abdulla</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#blogs">Blogs</a></li>
+    <li><a href="#wireframes">Wireframes</a></li>
+    <li><a href="#wins">Wins</a></li>
+    <li><a href="#coding">Coding</a></li>
+  </ul>
+  <a href="mailto:fahimmv29@gmail.com?subject=Hiring%20Inquiry%20-%20Portfolio" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1200px;margin:0 auto;">
+<div class="hero">
+  <div style="position:relative;z-index:2;">
+    <div class="hero-eyebrow r">Game Designer &nbsp;·&nbsp; 4+ Years &nbsp;·&nbsp; <span style="color:var(--sub);">Systems · Economy · Mobile · F2P · iGaming</span></div>
+    <h1 class="hn r">Fahim<br/><em>Abdulla</em></h1>
+    <p class="hero-role r">Systems &amp; Gameplay · Economy · Mobile &amp; F2P</p>
+    <p class="hero-bio r">Game Designer with 6+ years in the gaming industry, specializing in designing core gameplay loops, progression systems, and engaging player experiences. Combines game design thinking with practical development experience, focusing on gameplay systems, UX, and data-driven iteration.</p>
+    <div class="chips r">
+      <span class="chip">GDD</span>
+      <span class="chip">Prototyping</span>
+      <span class="chip">F2P Economy</span>
+      <span class="chip">Unity</span>
+      <span class="chip">Live-Ops</span>
+      <span class="chip">Coding &amp; Math</span>
+    </div>
+    <div class="cta r">
+      <a href="#journey" class="btn btn-gold">View Journey</a>
+      <a href="#expertise" class="btn btn-out">Expertise</a>
+    </div>
+  </div>
+  <div class="hcard rl">
+    <div class="avatar-wrap">
+      <div class="avatar-gradient"></div>
+      <div class="avatar-box">
+
+        <!-- ▼ PROFILE IMAGE — paste your URL or Google Drive link here ▼ -->
+        <img
+          class="avatar-photo"
+          src="assets/images/FAHIM.png"
+          alt="Fahim Abdulla"
+          onerror="this.style.display='none'"/>
+        <!-- ▲ Replace YOUR_PROFILE_IMAGE_URL with your photo link ▲ -->
+
+        <div class="avatar-photo-vignette"></div>
+
+        <div class="avatar-stats">
+          <div class="stat-row">
+            <div class="stat-item"><span class="sv">4+</span><span class="sl">Yrs Design</span></div>
+            <div class="stat-item"><span class="sv">2+</span><span class="sl">Yrs Dev</span></div>
+            <div class="stat-item"><span class="sv">5+</span><span class="sl">Titles</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ftags">
+        <span class="ftag">◈ Mobile F2P</span>
+        <span class="ftag">◈ iGaming Casino</span>
+        <span class="ftag">◈ Game Economy</span>
+        <span class="ftag">◈ Systems Design</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="div"></div>
+
+<!-- EXPERTISE -->
+<section id="expertise" class="s-alt">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">01 // EXPERTISE</span>
+    <h2 class="eyebrow-title">Core Competencies</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+  <div class="skill-grid">
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Game Design</span><span class="sc-num">95</span></div><p class="sc-desc">Designing and managing adaptive systems, core loops, and player-centric gameplay experiences across mobile and digital games. Key milestones across product development, project management, and delivery.</p><div class="bt"><div class="bf" data-w="95"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Product Ownership</span><span class="sc-num">95</span></div><p class="sc-desc">Driving a product from concept through design, team communication, iteration, and delivery. Cross-functional impact at every stage with demonstrable milestone tracking and release management.</p><div class="bt"><div class="bf" data-w="95"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Spec Doc / PRD Writing</span><span class="sc-num">90</span></div><p class="sc-desc">Creating detailed, structured product requirement documents that define scope, functionality, and acceptance criteria. Ensuring design ambiguity is resolved before development begins.</p><div class="bt"><div class="bf" data-w="90"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Data Analysis</span><span class="sc-num">85</span></div><p class="sc-desc">Using player behaviour data to inform design decisions, balance systems, monitor KPIs, and drive measurable improvements to gameplay loop performance and monetisation.</p><div class="bt"><div class="bf" data-w="85"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">UX Analysis</span><span class="sc-num">85</span></div><p class="sc-desc">Evaluating game interfaces to improve clarity, discoverability, friction, and overall player experience. Conducting in-depth funnel and player journey analysis across onboarding and live sessions.</p><div class="bt"><div class="bf" data-w="85"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Worldbuilding / FLAN</span><span class="sc-num">80</span></div><p class="sc-desc">Creating rich, low-fidelity narrative and lore documents outlining world structures, factions, and characters before visual design investment begins. Establishing strong IP foundations.</p><div class="bt"><div class="bf" data-w="80"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Unity &amp; Scripting</span><span class="sc-num">75</span></div><p class="sc-desc">Implementing gameplay mechanics and balancing live systems in Unity using C# to prototype, test, and iterate directly in engine — enabling tighter design-to-dev feedback loops.</p><div class="bt"><div class="bf" data-w="75"></div></div></div>
+    <div class="sc r"><div class="sc-top"><span class="sc-label">Low-Fidelity Prototyping</span><span class="sc-num">88</span></div><p class="sc-desc">Creating rapid low-fidelity wireframes and prototypes to validate core mechanics, player flows, and interactions before committing to production. Applying programming and mathematical logic throughout.</p><div class="bt"><div class="bf" data-w="88"></div></div></div>
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<!-- JOURNEY -->
+<section id="journey">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">02 // JOURNEY</span>
+    <h2 class="eyebrow-title">Professional Journey</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+  <div class="timeline">
+    <div class="tj">
+      <div class="tj-date">Feb 2022 — Present</div>
+      <div class="tj-role">Game Designer</div>
+      <div class="tj-co">DynamicNext Technologies</div>
+      <div class="tj-desc">DynamicNext is a leading Indian game studio creating high-quality games for global markets. Led successful titles with millions of downloads, handling system design, GDD creation, economy balancing, live-ops, and cross-team coordination.</div>
+    </div>
+    <div class="tj">
+      <div class="tj-date">Jan 2020 — Jan 2022</div>
+      <div class="tj-role">Product Owner / Unity Developer</div>
+      <div class="tj-co">WeBros Media Pvt Ltd</div>
+      <div class="tj-desc">Webros Media is a digital studio specializing in animation, EdTech, branding, gaming, and app development. Managed end-to-end product ownership from Figma wireframes to Unity development and App Store release for children’s titles.</div>
+    </div>
+    <div class="tj">
+      <div class="tj-date">April 2019 — Aug 2019</div>
+      <div class="tj-role">Unity Developer</div>
+      <div class="tj-co">Avida Labs Pvt Ltd</div>
+      <div class="tj-desc">Avidia Labs builds immersive learning platforms using AR and VR. Contributed to Unity-based interactive modules and implemented core gameplay interactions for educational experiences.</div>
+    </div>
+    <div class="tj">
+      <div class="tj-date">Part Time</div>
+      <div class="tj-role">Lead Designer &amp; Content Writer</div>
+      <div class="tj-co">Govt. Brennen College</div>
+      <div class="tj-desc">Govt. Brennen College, a 170+ year-old institution in Kerala. Led creative design and content initiatives for institutional communications, digital platforms, and campus engagement.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="s-alt">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">03 // SKILLS</span>
+    <h2 class="eyebrow-title">Skill Arsenal</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+  <div class="scols r">
+    <div class="sg">
+      <div class="sg-title">⚙ Soft Skills</div>
+      <div class="tags">
+        <span class="tag">Teamwork</span><span class="tag">Scrum &amp; Agile</span>
+        <span class="tag">Research</span><span class="tag">Conflict Resolution</span>
+        <span class="tag">Data Analysis</span><span class="tag">Market Analysis</span>
+        <span class="tag">Communication</span><span class="tag">Adaptability</span>
+        <span class="tag">Critical &amp; Creative</span>
+      </div>
+    </div>
+    <div class="sg">
+      <div class="sg-title">🔧 Tech Skills</div>
+      <div class="tags">
+        <span class="tag">Google Docs / Sheets</span><span class="tag">Figma</span>
+        <span class="tag">Unity 3D</span><span class="tag">C#</span>
+        <span class="tag">MS Office Suite</span><span class="tag">Foundations</span>
+        <span class="tag">Adobe Suite</span><span class="tag">Xcode</span>
+      </div>
+    </div>
+    <div class="sg">
+      <div class="sg-title">📋 PM Tools</div>
+      <div class="tags">
+        <span class="tag">Redmine</span><span class="tag">Jira</span><span class="tag">Asana</span>
+      </div>
+      <div class="sg-title" style="margin-top:24px;">📊 Data Analysis</div>
+      <div class="tags">
+        <span class="tag">Power BI</span><span class="tag">MySQL</span><span class="tag">Tableau</span>
+      </div>
+    </div>
+    <div class="sg">
+      <div class="sg-title">🎛 Dashboards</div>
+      <div class="tags">
+        <span class="tag">App / Developer Console</span>
+        <span class="tag">Google Play Console</span>
+        <span class="tag">Firebase Console</span>
+        <span class="tag">Facebook Developer</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<!-- BLOGS -->
+<section id="blogs">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">04 // BLOGS</span>
+    <h2 class="eyebrow-title">Game Design Document — Blogs</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+  <div class="blog-grid r">
+
+    <!-- Card 1: eDOz-dDEYAs -->
+    <a class="blog-card" href="https://youtu.be/eDOz-dDEYAs" target="_blank" rel="noopener">
+      <div class="blog-thumb">
+        <img
+          src="https://img.youtube.com/vi/eDOz-dDEYAs/maxresdefault.jpg"
+          alt="The Legends: Idle Games"
+          onerror="ytFallback(this,'eDOz-dDEYAs')"/>
+        <div class="blog-thumb-overlay"></div>
+        <div class="blog-play"></div>
+        <span class="blog-yt-badge">▶ YouTube</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-kicker">Idle Games · Analysis · Desgin </div>
+        <div class="blog-title">The Legends: Idle Games</div>
+        <div class="blog-text">Merge, Conquer, and Rule!
+                    Step into the world of Tiny Legends, where strategy and skill collide! Merge powerful heroes, upgrade your army, and lead them into epic battles. With unique challenges, exciting rewards, and endless ways to evolve your squad, the battlefield is yours to command. Are you ready to become the ultimate Champion?</div>
+      </div>
+    </a>
+
+    <!-- Card 2: PTIgE_gMfEc -->
+    <a class="blog-card" href="https://www.youtube.com/watch?v=PTIgE_gMfEc" target="_blank" rel="noopener">
+      <div class="blog-thumb">
+        <img
+          src="https://img.youtube.com/vi/PTIgE_gMfEc/maxresdefault.jpg"
+          alt="Poker Legends: Casino Games"
+          onerror="ytFallback(this,'PTIgE_gMfEc')"/>
+        <div class="blog-thumb-overlay"></div>
+        <div class="blog-play"></div>
+        <span class="blog-yt-badge">▶ YouTube</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-kicker">Poker · Analysis · Desgin · Sale </div>
+        <div class="blog-title">Poker Legends: Casino Games</div>
+        <div class="blog-text">Master the Cards, Rule the Tables!
+                    Get ready for an exciting poker experience! Whether you’re a beginner or a seasoned pro, there’s a seat waiting for you. Sharpen your skills, bluff your way to victory, and stack your chips. Do you have what it takes to win big?</div>
+      </div>
+    </a>
+
+    <!-- Card 3: p-AFNXBSyfs -->
+    <a class="blog-card" href="https://youtu.be/p-AFNXBSyfs" target="_blank" rel="noopener">
+      <div class="blog-thumb">
+        <img
+          src="https://img.youtube.com/vi/p-AFNXBSyfs/maxresdefault.jpg"
+          alt="Teen Patti Royale : Casino Games"
+          onerror="ytFallback(this,'p-AFNXBSyfs')"/>
+        <div class="blog-thumb-overlay"></div>
+        <div class="blog-play"></div>
+        <span class="blog-yt-badge">▶ YouTube</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-kicker">Indian Poker · Analysis · Desgin · Sale </div>
+        <div class="blog-title">Teen Patti  Royale : Casino Games</div>
+        <div class="blog-text">Feel the Thrill, Win Big!
+                    Experience the excitement of Teen Patti, the popular Indian card game! Play live with friends or challenge players from around the world. Whether you’re a beginner or a pro, this fast-paced game brings you all the fun of a classic card game with exciting twists. Join the table, test your skills, and go all in for big wins!</div>
+      </div>
+    </a>
+
+      <!-- Card 4: p-AFNXBSyfs -->
+     <a class="blog-card" href="https://www.youtube.com/watch?v=R2V_r_mPey8" target="_blank" rel="noopener">
+       <div class="blog-thumb">
+         <img
+           src="https://img.youtube.com/vi/R2V_r_mPey8/hqdefault.jpg"
+           alt="Downtown Mafia : Text Based RPG"
+           onerror="ytFallback(this,'p-AFNXBSyfs')"/>
+         <div class="blog-thumb-overlay"></div>
+         <div class="blog-play"></div>
+         <span class="blog-yt-badge">▶ YouTube</span>
+       </div>
+       <div class="blog-body">
+         <div class="blog-kicker">Downtown Mafia · Sale </div>
+         <div class="blog-title">Downtown Mafia : Text Based RPG</div>
+         <div class="blog-text">Downtown Mafia: Gang Wars Game
+                     Classic Text based Idle Addictive Mafia Social MMORPG game
+                     Step into the world of organized crime in Downtown Mafia. Rise through the ranks, take on rival gangs, and dominate the city. Complete dangerous missions, recruit loyal members and expand your criminal empire. Will you be the ultimate kingpin? Only the ruthless survive in this world!</div>
+       </div>
+    </a>
+
+     <!-- Card 5: p-ACc76fb5IoI -->
+      <a class="blog-card" href="https://www.youtube.com/watch?v=ACc76fb5IoI" target="_blank" rel="noopener">
+        <div class="blog-thumb">
+          <img
+            src="https://img.youtube.com/vi/ACc76fb5IoI/maxresdefault.jpg"
+            alt="Ludo Royale: Dice & Board Game"
+            onerror="ytFallback(this,'p-ACc76fb5IoI')"/>
+          <div class="blog-thumb-overlay"></div>
+          <div class="blog-play"></div>
+          <span class="blog-yt-badge">▶ YouTube</span>
+        </div>
+        <div class="blog-body">
+          <div class="blog-kicker">Ludo Royale · Pitch  · Market Study</div>
+          <div class="blog-title">Ludo Royale: Dice & Board Game</div>
+          <div class="blog-text">Classic Fun, Endless Challenges!
+                      Roll the dice and dive into endless fun with Ludo Royale! Play with friends offline or challenge players from around the world. With quick games and easy rules, it’s perfect for all ages. Whether you want a casual match or intense competition, Ludo Royale brings excitement to your screen!</div>
+        </div>
+     </a>
+
+
+  </div>
+  <div class="decon r">
+    <div class="decon-title">📐 Deconstruction of Top Hyper Casual Games of 2025</div>
+    <div class="decon-text">Game Deconstruction – Hybrid Mobile Hits (2025)
+                            A breakdown of top-performing hybrid mobile games of 2025, analyzing their onboarding, core gameplay loops, progression systems, monetization mechanics, and live-ops features to understand what drives engagement and retention.</div>
+
+    <!-- ▼ 3 showcase images — replace YOUR_DECON_IMAGE_X_URL with your links ▼ -->
+    <div class="decon-imgs" id="decon-imgs">
+
+      <div class="decon-img-slot">
+        <img src="assets/images/BLOCK.png" alt="Deconstruction — Game 1"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.decon-img-placeholder').style.display='flex'"/>
+        <div class="decon-img-slot-overlay"></div>
+        <div class="decon-img-placeholder" style="display:none;">
+          <span>📸 Image 1</span><small>Paste your image URL here</small>
+        </div>
+      </div>
+
+      <div class="decon-img-slot">
+        <img src="assets/images/KNIT.png" alt="Deconstruction — Game 2"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.decon-img-placeholder').style.display='flex'"/>
+        <div class="decon-img-slot-overlay"></div>
+        <div class="decon-img-placeholder" style="display:none;">
+          <span>📸 Image 2</span><small>Paste your image URL here</small>
+        </div>
+      </div>
+
+      <div class="decon-img-slot">
+        <img src="assets/images/BUS.png" alt="Deconstruction — Game 3"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.decon-img-placeholder').style.display='flex'"/>
+        <div class="decon-img-slot-overlay"></div>
+        <div class="decon-img-placeholder" style="display:none;">
+          <span>📸 Image 3</span><small>Paste your image URL here</small>
+        </div>
+      </div>
+
+    </div>
+    <!-- ▲ end images ▲ -->
+
+    <div class="tags">
+      <span class="tag">Core Loop Analysis</span><span class="tag">Monetisation Audit</span>
+      <span class="tag">FTUE Review</span><span class="tag">Retention Systems</span>
+      <span class="tag">UX Breakdown</span><span class="tag">Economy Design</span>
+      <span class="tag">Player Psychology</span><span class="tag">Competitive Intel</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<!-- WIREFRAMES -->
+<section id="wireframes" class="s-alt">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">05 // WIREFRAMES</span>
+    <h2 class="eyebrow-title">Wire Frames</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+
+  <div class="wf-label r">For Games</div>
+  <div class="wf-img-grid-2 r">
+
+    <!-- ── CAROUSEL 1: Casino GDD ── -->
+    <div class="carousel" id="carousel-casino">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="track-casino">
+
+          <!-- SLOT 1 — replace src with your image URL -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_1.png" alt="Casino GDD Screen 1"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 1</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 2 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_2.png" alt="Casino GDD Screen 2"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 2</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 3 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_3.png" alt="Casino GDD Screen 3"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 3</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 4 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_4.png" alt="Casino GDD Screen 4"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 4</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 5 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_5.png" alt="Casino GDD Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+           <!-- SLOT 6 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_6.png" alt="Casino GDD Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+            <!-- SLOT 7 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_7.png" alt="Casino GDD Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+            <!-- SLOT 6 -->
+          <div class="carousel-slide">
+            <img src="assets/images/casino_8.png" alt="Casino GDD Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+        </div><!-- /track -->
+      </div><!-- /track-wrap -->
+
+      <span class="carousel-badge">GDD · Casino</span>
+      <span class="carousel-counter" id="counter-casino">1 / 5</span>
+      <button class="carousel-btn prev" onclick="carouselMove('casino',-1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselMove('casino', 1)">›</button>
+
+      <!-- Thumbnail strip -->
+      <div class="carousel-thumbs" id="thumbs-casino"></div>
+
+      <!-- Dots -->
+      <div class="carousel-dots" id="dots-casino"></div>
+
+      <div class="carousel-body">
+        <div class="wf-img-title">Casino Game — GDD Wireframe</div>
+        <div class="wf-img-desc">Full Game Design Document wireframe outlining UI flow, game states, player journey, and screen transitions for a Casino-style mobile game. Covers all major screens, edge states, and transition logic.</div>
+        <div class="tags">
+          <span class="tag">GDD</span><span class="tag">Screen Flow</span>
+          <span class="tag">Game States</span><span class="tag">Mobile</span>
+        </div>
+      </div>
+    </div><!-- /carousel-casino -->
+
+    <!-- ── CAROUSEL 2: Idle RPG Login & Chest ── -->
+    <div class="carousel" id="carousel-rpg">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="track-rpg">
+
+          <!-- SLOT 1 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 1.jpg" alt="Idle RPG Screen 1"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 1</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 2 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 2.jpg" alt="Idle RPG Screen 1"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 2</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 3 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 3.jpg" alt="Idle RPG Screen 3"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 3</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 4 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 4.jpg" alt="Idle RPG Screen 4"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 4</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+          <!-- SLOT 5 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 5.jpg" alt="Idle RPG Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+            <!-- SLOT 6 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 6.jpg" alt="Idle RPG Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+           <!-- SLOT 7 -->
+          <div class="carousel-slide">
+            <img src="assets/images/idle 7.jpg" alt="Idle RPG Screen 5"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="carousel-slide-placeholder" style="display:none;">
+              <span>📸 Slot 5</span><small>Replace src with your image URL</small>
+            </div>
+            <div class="carousel-slide-overlay"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <span class="carousel-badge">Lo-Fi · Idle RPG</span>
+      <span class="carousel-counter" id="counter-rpg">1 / 5</span>
+      <button class="carousel-btn prev" onclick="carouselMove('rpg',-1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselMove('rpg', 1)">›</button>
+
+      <div class="carousel-thumbs" id="thumbs-rpg"></div>
+      <div class="carousel-dots" id="dots-rpg"></div>
+
+      <div class="carousel-body">
+        <div class="wf-img-title">Idle RPG — Login &amp; Chest Flows</div>
+        <div class="wf-img-desc">Low-fidelity wireframes for authentication and in-game chest reward systems. Covers modal hierarchy, button states, and the full chest-opening sequence with all fallback states documented.</div>
+        <div class="tags">
+          <span class="tag">Auth Flow</span><span class="tag">Modal UX</span>
+          <span class="tag">Reward Loop</span><span class="tag">Lo-Fi</span>
+        </div>
+      </div>
+    </div><!-- /carousel-rpg -->
+
+  </div><!-- /wf-img-grid-2 -->
+
+  <div class="wf-label r">For Other Projects</div>
+  <div class="wf-img-grid-3 r">
+
+    <!-- IDOS GO -->
+    <div class="wf-img-card">
+      <div class="wf-img-wrap" style="height:200px;">
+        <img
+          src="assets/images/Food.png"
+          alt="Food Delivery App Wireframe"
+          loading="lazy"
+          onerror="this.parentElement.style.background='#101320';this.style.display='none'"/>
+        <div class="wf-img-overlay"></div>
+        <span class="wf-img-badge">App · Food Delivery</span>
+      </div>
+      <div class="wf-img-body">
+        <div class="wf-img-title">IDOS GO — Food Delivery App</div>
+        <div class="wf-img-desc">This wireframe illustrates the end-to-end user journey of a food delivery mobile application, from location detection and restaurant discovery to menu browsing, cart management, checkout, and order tracking. The design focuses on simplifying the ordering process, improving restaurant discoverability, and enabling a seamless checkout experience.</div>
+        <div class="tags">
+          <span class="tag">App Flow</span><span class="tag">Order UX</span><span class="tag">Checkout</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insights Dashboard -->
+    <div class="wf-img-card">
+      <div class="wf-img-wrap" style="height:200px;">
+        <img
+          src="assets/images/Dashborad.png"
+          alt="Insights Dashboard for Survey Wireframe"
+          loading="lazy"
+          onerror="this.parentElement.style.background='#101320';this.style.display='none'"/>
+        <div class="wf-img-overlay"></div>
+        <span class="wf-img-badge">Dashboard · Survey</span>
+      </div>
+      <div class="wf-img-body">
+        <div class="wf-img-title">Insights Dashboard for Survey</div>
+        <div class="wf-img-desc">This wireframe presents an Insights Dashboard designed for survey analytics, enabling enterprise users to monitor key metrics such as survey participation, response rates, NPS, and geographic distribution. The interface focuses on clear data visualisation, quick filtering, and actionable insights to support faster decision-making.</div>
+        <div class="tags">
+          <span class="tag">Data Viz</span><span class="tag">NPS</span><span class="tag">Reporting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music App -->
+    <div class="wf-img-card">
+      <div class="wf-img-wrap" style="height:200px;">
+        <img
+          src="assets/images/Music.png"
+          alt="Music Streaming App Wireframe"
+          loading="lazy"
+          onerror="this.parentElement.style.background='#101320';this.style.display='none'"/>
+        <div class="wf-img-overlay"></div>
+        <span class="wf-img-badge">App · Music</span>
+      </div>
+      <div class="wf-img-body">
+        <div class="wf-img-title">Music Streaming App</div>
+        <div class="wf-img-desc">This wireframe explores a music streaming mobile app experience, covering key user journeys such as onboarding, content discovery, library management, and premium subscription. The design focuses on simplifying navigation, improving personalised recommendations, and enabling quick access to music, podcasts, &amp; playlists.</div>
+        <div class="tags">
+          <span class="tag">Mobile UI</span><span class="tag">Discovery</span><span class="tag">Subscription</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<!-- ACCOMPLISHMENTS -->
+<section id="wins">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">06 // ACCOMPLISHMENTS</span>
+    <h2 class="eyebrow-title">Milestones &amp; Wins</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+  <div class="acc-grid r">
+
+    <!-- Card 1: 1M+ Downloads -->
+    <div class="acc-card">
+      <div class="acc-thumb">
+        <img
+          src="assets/images/DTG.png"
+          alt="No. 1 RPG (US) on the Google Play Store"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.acc-thumb-placeholder').style.display='flex'"/>
+        <div class="acc-thumb-overlay"></div>
+        <div class="acc-thumb-placeholder" style="display:none;">
+          <span>📸 Image Slot 1</span>
+          <small>Paste your image URL or Google Drive link</small>
+        </div>
+      </div>
+      <div class="acc-body">
+        <div class="acc-title">No. 1 RPG (US) on the Google Play Store</div>
+        <div class="acc-text">Led most successful game titles at DynamoNext Technologies, receiving millions of downloads in international markets. Drove design decisions that directly impacted retention rates, session depth, and IAP revenue.</div>
+      </div>
+    </div>
+
+    <!-- Card 2: International Launches -->
+    <div class="acc-card">
+      <div class="acc-thumb">
+        <img
+          src="assets/images/Pitches.png"
+          alt="International Market Launches"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.acc-thumb-placeholder').style.display='flex'"/>
+        <div class="acc-thumb-overlay"></div>
+        <div class="acc-thumb-placeholder" style="display:none;">
+          <span>📸 Image Slot 2</span>
+          <small>Paste your image URL or Google Drive link</small>
+        </div>
+      </div>
+      <div class="acc-body">
+        <div class="acc-title">International Market Launches</div>
+        <div class="acc-text">Teen Patti & Ludo, Successfully launched multiple game titles into global markets with optimised monetisation loops, localised live-ops calendars, and retention strategies tailored to regional player behaviours.</div>
+      </div>
+    </div>
+
+    <!-- Card 3: Kids Games -->
+    <div class="acc-card">
+      <div class="acc-thumb">
+        <img
+          src="assets/images/Development.png"
+          alt="Being a development lead"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='none';this.parentElement.querySelector('.acc-thumb-placeholder').style.display='flex'"/>
+        <div class="acc-thumb-overlay"></div>
+        <div class="acc-thumb-placeholder" style="display:none;">
+          <span>📸 Image Slot 3</span>
+          <small>Paste your image URL or Google Drive link</small>
+        </div>
+      </div>
+      <div class="acc-body">
+        <div class="acc-title">Being a development lead</div>
+        <div class="acc-text">Contributed as Product Owner for Brain King - Puzzle Game and multiple children's game/app titles at Webros Media — managing the full product lifecycle from Figma prototyping through Unity development, QA, and app release.</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="notes-grid r" style="margin-top:1px;">
+    <div class="np">
+      <div class="np-title">🎮 PROJECTS ASSOCIATED & KEY ROLES WITH DYNAMICNEXT</div>
+      <ul class="nl">
+        <li><b>Downtown Mafia [APPLE / PLAY STORE  / WEBGL]</b></li>
+        <li><b>Poker Legends - Texas Hold'em [APPLE / PLAY STORE  / WEBGL]</b></li>
+        <li><b>Teen Patti: 3 Card Poker Game  [APPLE / PLAY STORE / WEBGL]</b></li>
+        <li><b>Tiny Legends: Epic Merge Wars [PLAY STORE  / APPLE]</b></li>
+        <li>Designed full game economy including soft/hard currency systems and IAP structures</li>
+        <li>Created and maintained GDD and Feature Spec documents for 5+ shipped titles</li>
+        <li>Designed daily/weekly challenge systems that measurably improved DAU retention</li>
+        <li>Balanced progression curves and XP systems across multiple game genres</li>
+        <li>Designed tournament systems and PVP league structures for competitive mobile games</li>
+        <li>Implemented live-ops event frameworks — seasonal events, limited-time offers, battle passes</li>
+        <li>Conducted competitor analysis and player research to inform design pivots</li>
+        <li>Collaborated with art, dev, and QA teams for complete end-to-end feature delivery</li>
+        <li>Wrote detailed FTUE onboarding flows that reduced early drop-off in new installs</li>
+        <li>Mapped full player journeys from install through deep engagement and monetisation</li>
+      </ul>
+    </div>
+    <div class="np">
+      <div class="np-title">🧩 PROJECTS ASSOCIATED & KEY ROLES WITH WEBROS MEDIA</div>
+      <ul class="nl">
+        <li><b>Brain King - Puzzle Games [PLAYSTORE / APPLE]</b></li>
+        <li><b>Run Baby Run - Movie Game [PLAYSTORE / APPLE]</b></li>
+        <li>Developed user personas and player archetypes for targeted feature design</li>
+        <li>Conducted UX audits on competitor apps, producing detailed teardown reports</li>
+        <li>Applied programming and mathematical logic to build functional interactive systems</li>
+        <li>Iterated on A/B test results to refine reward schedules and pacing curves</li>
+        <li>Produced low-fidelity wireframes in Figma for rapid stakeholder alignment</li>
+        <li>Scripted dialogue trees and narrative structures for RPG-lite mobile titles</li>
+        <li>Trained junior designers on GDD writing standards and design review processes</li>
+        <li>Designed social mechanics including guilds, gifting, and co-op challenges</li>
+        <li>Created scalable game balance spreadsheets covering 50+ variables per title</li>
+        <li>Reviewed and iterated on prototype builds with QA and engineering weekly</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="div"></div>
+
+<div class="div"></div>
+
+<!-- CODING SKILLS -->
+<section id="coding" class="s-dark">
+<div class="wrap">
+  <div class="eyebrow r">
+    <span class="eyebrow-num">07 // CODING SKILLS</span>
+    <h2 class="eyebrow-title">Coding Skills &lt;/&gt;</h2>
+    <span class="eyebrow-rule"></span>
+  </div>
+
+  <div class="coding-intro r">
+    <div class="coding-intro-label">DEV WORK · Using Unity C#</div>
+    <p class="coding-intro-text">Using Unity and C# for project management streamlines development, ensuring cross-platform compatibility and efficient collaboration. Rapid prototyping and simplified asset management expedite the process, while real-time testing tools facilitate issue resolution. With extensive community support, developers can efficiently create high-quality games and deliver engaging experiences to players.</p>
+  </div>
+
+  <div class="coding-games r">
+
+     <!-- Game 1: Puzzle Gameplay -->
+     <div class="coding-game">
+       <a class="cg-thumb" href="https://youtu.be/5ZOV9eMAIiw" target="_blank" rel="noopener">
+         <img src="https://img.youtube.com/vi/5ZOV9eMAIiw/hqdefault.jpg"
+              alt="Puzzle Gameplay Video"
+              onerror="ytFallback(this,'5ZOV9eMAIiw')"/>
+         <div class="cg-overlay"></div>
+         <div class="cg-play"></div>
+         <span class="cg-yt">▶ YouTube</span>
+       </a>
+       <div class="cg-body">
+         <div class="cg-title">Match It — Unity C#</div>
+         <div class="cg-downloads">
+           <a class="cg-dl" href="https://drive.google.com/file/d/1KPeoVnRybkR0vPvd04VP_58lHqBkC5Dk/view" target="_blank">
+             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 19h18"/></svg>
+             APK · Android
+           </a>
+           <a class="cg-dl" href="https://drive.google.com/file/d/1NYCFcfjDoMjIK5CmKuWdfjHyaUBnychs/view" target="_blank">
+             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 19h18"/></svg>
+             Build · Mac
+           </a>
+         </div>
+       </div>
+     </div>
+
+     <!-- Game 2: Loop It -->
+     <div class="coding-game">
+       <a class="cg-thumb" href="https://youtu.be/BeYvWcEiAHw" target="_blank" rel="noopener">
+         <img src="https://img.youtube.com/vi/BeYvWcEiAHw/hqdefault.jpg"
+              alt="Loop It Gameplay Video"
+              onerror="ytFallback(this,'BeYvWcEiAHw')"/>
+         <div class="cg-overlay"></div>
+         <div class="cg-play"></div>
+         <span class="cg-yt">▶ YouTube</span>
+       </a>
+       <div class="cg-body">
+         <div class="cg-title">Loop It — Unity C#</div>
+         <div class="cg-downloads">
+           <a class="cg-dl" href="https://drive.google.com/file/d/1ODUhzrkIJayo3nw_4PYVG3jW4Np74Waa/view" target="_blank">
+             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 19h18"/></svg>
+             APK · Android
+           </a>
+           <a class="cg-dl" href="https://drive.google.com/file/d/1mQyOcUOZ8BANC9ZXKUv1lUKBcM6J44Bu/view" target="_blank">
+             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v13M7 11l5 5 5-5"/><path d="M3 19h18"/></svg>
+             Build · Mac
+           </a>
+         </div>
+       </div>
+     </div>
+
+  </div><!-- /coding-games -->
+
+  <!-- GAME MATH -->
+  <div class="wf-label r" style="margin-top:52px;">Game Math & Design Systems</div>
+  <div class="gmath-grid r">
+
+    <!-- SLIDE 1: Difficulty Curve — INTERACTIVE -->
+    <div class="gmath-card">
+      <div class="gmath-num">01 // Interactive</div>
+      <div class="gmath-title">Level Difficulty Curve</div>
+      <div class="gmath-sub">Progression & Difficulty Scaling</div>
+      <div class="gmath-formula">y = ax² + bx + c</div>
+      <canvas class="gmath-canvas" id="diffCanvas"></canvas>
+      <div class="gmath-sliders">
+        <div class="gmath-slider-row">
+          <span class="gmath-slider-label">a</span>
+          <input class="gmath-slider" id="sl-a" type="range" min="-1" max="1" step="0.05" value="0.3"/>
+          <span class="gmath-slider-val" id="sv-a">0.30</span>
+        </div>
+        <div class="gmath-slider-row">
+          <span class="gmath-slider-label">b</span>
+          <input class="gmath-slider" id="sl-b" type="range" min="-2" max="2" step="0.1" value="1"/>
+          <span class="gmath-slider-val" id="sv-b">1.00</span>
+        </div>
+        <div class="gmath-slider-row">
+          <span class="gmath-slider-label">c</span>
+          <input class="gmath-slider" id="sl-c" type="range" min="-5" max="5" step="0.5" value="0"/>
+          <span class="gmath-slider-val" id="sv-c">0.00</span>
+        </div>
+      </div>
+      <div class="gmath-desc">Quadratic model scales difficulty gradually at early stages, accelerating challenge in later levels — preventing early churn while maintaining long-term engagement.</div>
+      <div class="tags" style="margin-bottom:12px;">
+        <span class="tag">Early: Onboarding</span><span class="tag">Mid: Strategy</span><span class="tag">Late: Retention</span>
+      </div>
+      <div class="gmath-insight">Balanced difficulty prevents early churn while maintaining long-term engagement.</div>
+    </div>
+
+    <!-- SLIDE 2: Reward Economy — STATIC -->
+    <div class="gmath-card">
+      <div class="gmath-num">02 // Model</div>
+      <div class="gmath-title">Reward Economy Model</div>
+      <div class="gmath-sub">Reward Scaling & Economy Balance</div>
+      <div class="gmath-formula">Reward = BaseReward × Level^1.2</div>
+      <div class="gmath-desc">Rewards scale progressively with player level to maintain motivation while preventing economy inflation. Ensures pacing feels rewarding at every stage.</div>
+      <table class="reward-table">
+        <thead><tr><th>Level</th><th>Base</th><th>Coins Earned</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>50</td><td>50</td></tr>
+          <tr><td>5</td><td>50</td><td>~86</td></tr>
+          <tr><td>10</td><td>50</td><td>~120</td></tr>
+          <tr><td>20</td><td>50</td><td>~191</td></tr>
+          <tr><td>30</td><td>50</td><td>~300</td></tr>
+          <tr><td>50</td><td>50</td><td>~437</td></tr>
+        </tbody>
+      </table>
+      <div class="tags" style="margin-bottom:12px;">
+        <span class="tag">Idle Games</span><span class="tag">Hybrid Casual</span><span class="tag">RPG Systems</span>
+      </div>
+      <div class="gmath-insight">Scaling rewards properly maintains progression pacing and player satisfaction.</div>
+    </div>
+
+    <!-- SLIDE 3: Loot Probability — INTERACTIVE -->
+    <div class="gmath-card">
+      <div class="gmath-num">03 // Interactive</div>
+      <div class="gmath-title">Loot Drop Probability</div>
+      <div class="gmath-sub">Loot Drop Probability Model</div>
+      <div class="gmath-formula">P(A∪B) = P(A) + P(B) − P(A∩B)</div>
+      <table class="loot-table">
+        <thead><tr><th>Item Tier</th><th>Probability</th><th style="width:40%">Weight</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Common</td><td id="lp-common">60%</td>
+            <td><div class="loot-bar-wrap"><div class="loot-bar" id="lb-common" style="width:60%;background:#888;"></div></div></td>
+          </tr>
+          <tr>
+            <td>Rare</td><td id="lp-rare">30%</td>
+            <td><div class="loot-bar-wrap"><div class="loot-bar" id="lb-rare" style="width:30%;background:#4fc3f7;"></div></div></td>
+          </tr>
+          <tr>
+            <td>Epic</td><td id="lp-epic">9%</td>
+            <td><div class="loot-bar-wrap"><div class="loot-bar" id="lb-epic" style="width:9%;background:#ce93d8;"></div></div></td>
+          </tr>
+          <tr>
+            <td>Legendary</td><td id="lp-legend">1%</td>
+            <td><div class="loot-bar-wrap"><div class="loot-bar" id="lb-legend" style="width:1%;background:#e8b84b;"></div></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="loot-roll-btn" onclick="rollLoot()">◈ Roll Loot Drop</button>
+      <div class="loot-result" id="loot-result">— Press to simulate a drop —</div>
+      <div class="tags" style="margin:14px 0 12px;">
+        <span class="tag">Chest Rewards</span><span class="tag">Gacha</span><span class="tag">Booster Drops</span>
+      </div>
+      <div class="gmath-insight">Probability tuning controls player excitement while ensuring fairness and monetisation balance.</div>
+    </div>
+
+  </div><!-- /gmath-grid -->
+
+</div>
+</section>
+<section id="contact">
+<div class="wrap">
+  <div class="contact-inner">
+    <div class="c-kicker r">Open to Opportunities</div>
+    <h2 class="c-headline r">Let's Build<br/><span>Something Epic</span></h2>
+    <p class="c-sub r">Game Designer with 4+ years experience. Focused on mobile-first systems, F2P economy, and deeply satisfying player loops. Looking forward to connecting on meaningful game projects.</p>
+    <div class="c-links r">
+      <a href="tel:+919961106993" class="c-link"><span>📞</span> +91 996 110 6993</a>
+      <a href="mailto:fahimmv29@gmail.com?subject=Portfolio%20Inquiry" class="c-link"><span>✉</span><span>fahimmv29@gmail.com</span></a>
+      <a href="https://www.linkedin.com/in/fahim-abdulla-mv-33135b166/" class="c-link" target="_blank" rel="noopener noreferrer"> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">in</span> LinkedIn </a></div>
+      <a href="mailto:fahimmv29@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Fahim%2C%20I%20came%20across%20your%20portfolio..." class="btn btn-gold r" style="clip-path:none;padding:15px 52px;font-size:11px;"> Send a Message </a>
+      </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-brand">Fahim Abdulla · MV</span>
+  <span class="f-copy">© 2024 Fahim Abdulla Inc. All rights reserved.</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Cursor
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+  cur2.style.left=rx+'px'; cur2.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,.sc,.dash-card,.blog-card,.acc-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.style.transform='translate(-50%,-50%) scale(2.2)');
+  el.addEventListener('mouseleave',()=>cur.style.transform='translate(-50%,-50%) scale(1)');
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.r,.rl,.tj').forEach(el=>obs.observe(el));
+
+// Skill bars
+const bObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bf').forEach(b=>b.style.width=b.dataset.w+'%');
+      bObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.skill-grid').forEach(g=>bObs.observe(g));
+
+// Stagger grid children
+['.skill-grid .sc','.acc-grid .acc-card','.blog-grid .blog-card','.dash-grid .dash-card','.scols .sg'].forEach(sel=>{
+  document.querySelectorAll(sel).forEach((el,i)=>{
+    el.style.transitionDelay=(i*70)+'ms';
+    obs.observe(el);
+  });
+});
+
+// ── Carousel Logic ──────────────────────────────────
+const carousels = {};
+
+// YouTube thumbnail fallback chain: maxresdefault → sddefault → mqdefault → default
+function ytFallback(img, id) {
+  const chain = ['sddefault','mqdefault','hqdefault','default'];
+  const cur = img.src.split('/').pop().replace('.jpg','');
+  const next = chain[chain.indexOf(cur) + 1];
+  if (next) {
+    img.onerror = () => ytFallback(img, id);
+    img.src = 'https://img.youtube.com/vi/' + id + '/' + next + '.jpg';
+  } else {
+    // final fallback: hide broken img, show play button only on dark bg
+    img.style.display = 'none';
+  }
+}
+
+// Supports all common Google Drive share link formats and auto-converts to direct image URL
+function toDirectUrl(url) {
+  if (!url || url.startsWith('YOUR_')) return null;
+
+  // Already a direct thumbnail URL — leave it
+  if (url.includes('drive.google.com/uc') || url.includes('lh3.googleusercontent.com')) return url;
+
+  // Format: https://drive.google.com/file/d/FILE_ID/view...
+  let m = url.match(/\/file\/d\/([^\/\?]+)/);
+  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
+
+  // Format: https://drive.google.com/open?id=FILE_ID
+  m = url.match(/[?&]id=([^&]+)/);
+  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
+
+  // Format: https://docs.google.com/...d/FILE_ID/...
+  m = url.match(/\/d\/([^\/\?]+)/);
+  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
+
+  return url; // return as-is for non-Drive URLs
+}
+
+function initCarousel(id) {
+  const track    = document.getElementById('track-' + id);
+  const slides   = track ? Array.from(track.querySelectorAll('.carousel-slide')) : [];
+  const dotsWrap = document.getElementById('dots-' + id);
+  const thumbWrap= document.getElementById('thumbs-' + id);
+  if (!slides.length) return;
+  carousels[id] = { index: 0, total: slides.length };
+
+  slides.forEach((slide, i) => {
+    // Convert any Google Drive URLs in slide images
+    const img = slide.querySelector('img');
+    if (img) {
+      const rawSrc = img.getAttribute('src');
+      const direct = toDirectUrl(rawSrc);
+      if (direct && direct !== rawSrc) {
+        img.setAttribute('src', direct);
+        // Also update onerror since src changed
+        img.onerror = function() {
+          this.style.display = 'none';
+          const ph = this.nextElementSibling;
+          if (ph) ph.style.display = 'flex';
+        };
+      }
+    }
+
+    // Dot
+    const d = document.createElement('div');
+    d.className = 'carousel-dot' + (i===0?' active':'');
+    d.onclick = () => carouselGo(id, i);
+    dotsWrap.appendChild(d);
+
+    // Thumb
+    const th = document.createElement('div');
+    th.className = 'carousel-thumb' + (i===0?' active':'');
+    th.onclick = () => carouselGo(id, i);
+    const finalSrc = img ? img.getAttribute('src') : null;
+    if (finalSrc && !finalSrc.startsWith('YOUR_')) {
+      const ti = document.createElement('img');
+      ti.src = finalSrc;
+      ti.alt = '';
+      ti.onerror = function(){ this.style.display='none'; };
+      th.appendChild(ti);
+    } else {
+      th.style.cssText = 'background:#141828;border:2px dashed rgba(232,184,75,.15);display:flex;align-items:center;justify-content:center;';
+      th.innerHTML = '<span style="font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(232,184,75,.3);">' + (i+1) + '</span>';
+    }
+    thumbWrap.appendChild(th);
+  });
+  updateCarousel(id);
+}
+
+function updateCarousel(id) {
+  const s = carousels[id];
+  const track    = document.getElementById('track-' + id);
+  const dotsWrap = document.getElementById('dots-' + id);
+  const thumbWrap= document.getElementById('thumbs-' + id);
+  const counter  = document.getElementById('counter-' + id);
+  track.style.transform = 'translateX(-' + (s.index * 100) + '%)';
+  if (counter) counter.textContent = (s.index+1) + ' / ' + s.total;
+  dotsWrap.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===s.index));
+  thumbWrap.querySelectorAll('.carousel-thumb').forEach((t,i)=>t.classList.toggle('active',i===s.index));
+  const activeTh = thumbWrap.querySelectorAll('.carousel-thumb')[s.index];
+  if (activeTh) activeTh.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function carouselGo(id, idx) {
+  carousels[id].index = (idx + carousels[id].total) % carousels[id].total;
+  updateCarousel(id);
+}
+function carouselMove(id, dir) { carouselGo(id, carousels[id].index + dir); }
+
+// Touch swipe
+let _tx=0;
+document.addEventListener('touchstart',e=>{_tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-_tx;
+  if(Math.abs(dx)<40)return;
+  const el=e.target.closest('.carousel');
+  if(!el)return;
+  carouselMove(el.id.replace('carousel-',''),dx<0?1:-1);
+});
+
+//initCarousel('casino');
+//initCarousel('rpg');
+
+// ── Lightbox ─────────────────────────────────────────
+let lbImages = [];
+let lbIndex  = 0;
+
+function lbOpen(src, alt, allImgs, clickedIdx) {
+  lbImages = allImgs || [{ src, alt }];
+  lbIndex  = clickedIdx || 0;
+  lbRender();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbRender() {
+  const lb  = lbImages[lbIndex];
+  const img = document.getElementById('lightbox-img');
+  img.style.opacity = '0';
+  img.src = lb.src;
+  img.alt = lb.alt || '';
+  img.onload = () => { img.style.transition='opacity .2s'; img.style.opacity='1'; };
+  document.getElementById('lightbox-caption').textContent =
+    lb.alt ? lb.alt + (lbImages.length > 1 ? '  —  ' + (lbIndex+1) + ' / ' + lbImages.length : '') : '';
+  // show/hide nav arrows
+  const showNav = lbImages.length > 1;
+  document.getElementById('lightbox-nav-prev').style.display = showNav ? 'flex' : 'none';
+  document.getElementById('lightbox-nav-next').style.display = showNav ? 'flex' : 'none';
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  lbRender();
+}
+
+function lbClose(e) {
+  if (e && e.target !== document.getElementById('lightbox') &&
+      e.target !== document.getElementById('lightbox-close')) return;
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  lbImages = [];
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')      lbClose({ target: document.getElementById('lightbox') });
+  if (e.key === 'ArrowLeft')   lbNav(-1);
+  if (e.key === 'ArrowRight')  lbNav(1);
+});
+
+// Wire up carousel slides — collect all real images in a carousel then open at clicked index
+function attachCarouselLightbox(carouselId) {
+  const track  = document.getElementById('track-' + carouselId);
+  if (!track) return;
+  const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', () => {
+      // Collect all slides that have a real loaded image
+      const allImgs = slides.map(s => {
+        const img = s.querySelector('img');
+        if (!img || img.style.display === 'none') return null;
+        return { src: img.src, alt: img.alt || '' };
+      }).filter(Boolean);
+
+      // Map clicked index to position in allImgs
+      const img = slide.querySelector('img');
+      if (!img || img.style.display === 'none') return; // placeholder — do nothing
+      const clickedSrc = img.src;
+      const clickedIdx = allImgs.findIndex(x => x.src === clickedSrc);
+
+      lbOpen(img.src, img.alt, allImgs, Math.max(0, clickedIdx));
+    });
+  });
+}
+
+// Run after carousels init
+// Wire up "For Other Projects" static image cards into lightbox
+(function() {
+  const grid = document.querySelector('.wf-img-grid-3');
+  if (!grid) return;
+  const wraps = Array.from(grid.querySelectorAll('.wf-img-wrap'));
+  const allImgs = wraps.map(w => {
+    const img = w.querySelector('img');
+    if (!img || img.style.display === 'none') return null;
+    return { src: img.src, alt: img.alt || '' };
+  }).filter(Boolean);
+  wraps.forEach((wrap) => {
+    wrap.addEventListener('click', () => {
+      const img = wrap.querySelector('img');
+      if (!img || img.style.display === 'none') return;
+      const idx = allImgs.findIndex(x => x.src === img.src);
+      lbOpen(img.src, img.alt, allImgs, Math.max(0, idx));
+    });
+  });
+})();
+
+// ── Game Math Interactive ─────────────────────────
+// Slide 1: Difficulty Curve
+function drawDiffCurve() {
+  const canvas = document.getElementById('diffCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 400;
+  const H = canvas.offsetHeight || 160;
+  canvas.width  = W * window.devicePixelRatio;
+  canvas.height = H * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+  const a = parseFloat(document.getElementById('sl-a').value);
+  const b = parseFloat(document.getElementById('sl-b').value);
+  const c = parseFloat(document.getElementById('sl-c').value);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background grid
+  ctx.strokeStyle = 'rgba(255,255,255,.05)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += W/8) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y < H; y += H/4) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Axes
+  ctx.strokeStyle = 'rgba(232,184,75,.25)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(20, 0); ctx.lineTo(20, H); ctx.stroke();
+
+  // Curve — x from -10 to 10
+  const xMin = -10, xMax = 10;
+  const pts = [];
+  for (let px = 0; px <= W; px++) {
+    const xv = xMin + (px / W) * (xMax - xMin);
+    const yv = a*xv*xv + b*xv + c;
+    pts.push({ px, yv });
+  }
+  const yVals = pts.map(p => p.yv);
+  const yMin = Math.min(...yVals), yMax = Math.max(...yVals);
+  const yRange = yMax - yMin || 1;
+
+  const grad = ctx.createLinearGradient(0, 0, W, 0);
+  grad.addColorStop(0,   'rgba(232,184,75,.3)');
+  grad.addColorStop(0.5, '#e8b84b');
+  grad.addColorStop(1,   'rgba(232,184,75,.3)');
+
+  ctx.beginPath();
+  pts.forEach(({ px, yv }, i) => {
+    const py = H - 10 - ((yv - yMin) / yRange) * (H - 20);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  });
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2.5;
+  ctx.shadowColor = 'rgba(232,184,75,.4)';
+  ctx.shadowBlur = 8;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Label
+  ctx.fillStyle = 'rgba(232,184,75,.45)';
+  ctx.font = '10px JetBrains Mono, monospace';
+  ctx.fillText(`y = ${a}x² + ${b}x + ${c}`, 26, 14);
+}
+
+// Slider listeners
+['a','b','c'].forEach(k => {
+  const sl = document.getElementById('sl-' + k);
+  const sv = document.getElementById('sv-' + k);
+  if (!sl) return;
+  sl.addEventListener('input', () => {
+    sv.textContent = parseFloat(sl.value).toFixed(2);
+    drawDiffCurve();
+  });
+});
+
+// Draw on load + resize
+window.addEventListener('load', drawDiffCurve);
+window.addEventListener('resize', drawDiffCurve);
+
+// Slide 3: Loot Roll
+function rollLoot() {
+  const roll = Math.random() * 100;
+  const result = document.getElementById('loot-result');
+  let tier, cls, emoji;
+  if      (roll < 1)  { tier = 'LEGENDARY DROP!';  cls = 'legendary'; emoji = '👑'; }
+  else if (roll < 10) { tier = 'EPIC DROP!';        cls = 'epic';      emoji = '💜'; }
+  else if (roll < 40) { tier = 'RARE DROP!';        cls = 'rare';      emoji = '💙'; }
+  else                { tier = 'COMMON DROP';        cls = 'common';    emoji = '⬜'; }
+  result.className = 'loot-result';
+  result.textContent = '...';
+  setTimeout(() => {
+    result.className = 'loot-result ' + cls;
+    result.textContent = emoji + '  ' + tier + '  (' + roll.toFixed(1) + ')';
+  }, 180);
+}
+
+// ── Wire ALL lightbox targets after page load ─────────────────
+window.addEventListener('load', function() {
+
+  // Carousel lightboxes
+  attachCarouselLightbox('casino');
+  attachCarouselLightbox('rpg');
+
+  // "For Other Projects" static image grid
+  const wfGrid = document.querySelector('.wf-img-grid-3');
+  if (wfGrid) {
+    const wraps = Array.from(wfGrid.querySelectorAll('.wf-img-wrap'));
+    wraps.forEach(wrap => {
+      wrap.addEventListener('click', () => {
+        const img = wrap.querySelector('img');
+        if (!img || !img.naturalWidth) return;
+        const allImgs = wraps
+          .map(w => { const i = w.querySelector('img'); return (i && i.naturalWidth) ? { src: i.src, alt: i.alt||'' } : null; })
+          .filter(Boolean);
+        const idx = allImgs.findIndex(x => x.src === img.src);
+        lbOpen(img.src, img.alt, allImgs, Math.max(0, idx));
+      });
+    });
+  }
+
+  // Decon showcase images
+  const deconGrid = document.getElementById('decon-imgs');
+  if (deconGrid) {
+    const slots = Array.from(deconGrid.querySelectorAll('.decon-img-slot'));
+    slots.forEach(slot => {
+      slot.addEventListener('click', () => {
+        const img = slot.querySelector('img');
+        if (!img || !img.naturalWidth) return;
+        const allImgs = slots
+          .map(s => { const i = s.querySelector('img'); return (i && i.naturalWidth) ? { src: i.src, alt: i.alt||'' } : null; })
+          .filter(Boolean);
+        const idx = allImgs.findIndex(x => x.src === img.src);
+        lbOpen(img.src, img.alt, allImgs, Math.max(0, idx));
+      });
+    });
+  }
+
+  // Accomplishment milestone images
+  const accGrid = document.querySelector('.acc-grid');
+  if (accGrid) {
+    const thumbs = Array.from(accGrid.querySelectorAll('.acc-thumb'));
+    thumbs.forEach(thumb => {
+      const img = thumb.querySelector('img');
+      if (!img) return;
+      thumb.style.cursor = 'zoom-in';
+      thumb.addEventListener('click', () => {
+        if (!img.naturalWidth) return;
+        const allImgs = thumbs
+          .map(t => { const i = t.querySelector('img'); return (i && i.naturalWidth) ? { src: i.src, alt: i.alt||'' } : null; })
+          .filter(Boolean);
+        const idx = allImgs.findIndex(x => x.src === img.src);
+        lbOpen(img.src, img.alt, allImgs, Math.max(0, idx));
+      });
+    });
+  }
+
+});
+</script>
+</body>
+</html>
