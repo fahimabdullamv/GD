@@ -401,6 +401,17 @@ h1.hn em{color:var(--gold);font-style:normal;}
 .nl li{display:flex;gap:11px;font-size:13px;color:var(--sub);padding:6px 0;
   border-bottom:1px solid rgba(255,255,255,.03);line-height:1.65;}
 .nl li::before{content:'→';color:var(--gold);flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+.nl li.game-li{flex-wrap:wrap;align-items:center;gap:8px;padding:10px 0;}
+.nl li.game-li::before{content:'◈';}
+.game-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px;flex:1;min-width:160px;}
+.game-platforms{display:flex;gap:6px;flex-wrap:wrap;}
+.sp-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;text-decoration:none;text-transform:uppercase;padding:3px 10px;border:1px solid;transition:all .2s;white-space:nowrap;}
+.sp-apple{color:#a8d8a8;border-color:rgba(168,216,168,.3);background:rgba(168,216,168,.05);}
+.sp-apple:hover{background:rgba(168,216,168,.18);border-color:#a8d8a8;color:#fff;}
+.sp-play{color:#7ec8e3;border-color:rgba(126,200,227,.3);background:rgba(126,200,227,.05);}
+.sp-play:hover{background:rgba(126,200,227,.18);border-color:#7ec8e3;color:#fff;}
+.sp-webgl{color:var(--gold);border-color:rgba(232,184,75,.3);background:rgba(232,184,75,.05);}
+.sp-webgl:hover{background:rgba(232,184,75,.18);border-color:var(--gold);color:#fff;}
 
 /* DASHBOARDS */
 .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);}
@@ -605,14 +616,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56p
     <li><a href="#wins">Wins</a></li>
     <li><a href="#coding">Coding</a></li>
   </ul>
-  <a href="mailto:fahimmv29@gmail.com?subject=Hiring%20Inquiry%20-%20Portfolio" class="nav-cta">Hire Me</a>
+  <a href="/cdn-cgi/l/email-protection#593f38313034342f6b60193e34383035773a3634662a2c3b333c3a2d6411302b30373e7c6b691037282c302b207c6b69747c6b6909362b2d3f36353036" class="nav-cta">Hire Me</a>
 </nav>
 
 <!-- HERO -->
 <div style="max-width:1200px;margin:0 auto;">
 <div class="hero">
   <div style="position:relative;z-index:2;">
-    <div class="hero-eyebrow r">Game Designer &nbsp;·&nbsp; 4+ Years &nbsp;·&nbsp; <span style="color:var(--sub);">Systems · Economy · Mobile · F2P · iGaming</span></div>
+    <div class="hero-eyebrow r">Game Designer &nbsp;·&nbsp; 4+ Years &nbsp;·&nbsp; <span style="color:var(--sub);">Systems · Mobile · F2P · iGaming</span></div>
     <h1 class="hn r">Fahim<br/><em>Abdulla</em></h1>
     <p class="hero-role r">Systems &amp; Gameplay · Economy · Mobile &amp; F2P</p>
     <p class="hero-bio r">Game Designer with 6+ years in the gaming industry, specializing in designing core gameplay loops, progression systems, and engaging player experiences. Combines game design thinking with practical development experience, focusing on gameplay systems, UX, and data-driven iteration.</p>
@@ -1298,10 +1309,37 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56p
     <div class="np">
       <div class="np-title">🎮 PROJECTS ASSOCIATED & KEY ROLES WITH DYNAMICNEXT</div>
       <ul class="nl">
-        <li><b>Downtown Mafia [APPLE / PLAY STORE  / WEBGL]</b></li>
-        <li><b>Poker Legends - Texas Hold'em [APPLE / PLAY STORE  / WEBGL]</b></li>
-        <li><b>Teen Patti: 3 Card Poker Game  [APPLE / PLAY STORE / WEBGL]</b></li>
-        <li><b>Tiny Legends: Epic Merge Wars [PLAY STORE  / APPLE]</b></li>
+        <li class="game-li">
+          <span class="game-title">Downtown Mafia</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/in/app/downtown-mafia-gang-wars-rpg/id860440635" target="_blank">🍎 Apple</a>
+            <a class="sp-badge sp-play"  href="https://play.google.com/store/apps/details?id=com.dn.games.dtmafia" target="_blank">▶ Play Store</a>
+            <a class="sp-badge sp-webgl" href="https://play.dtmafia.mobi/" target="_blank">🌐 WebGL</a>
+          </span>
+        </li>
+        <li class="game-li">
+          <span class="game-title">Poker Legends — Texas Hold'em</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/in/app/texas-holdem-poker-legends/id1330924793" target="_blank">🍎 Apple</a>
+            <a class="sp-badge sp-play"  href="https://play.google.com/store/apps/details?id=com.dn.games.dtcpoker" target="_blank">▶ Play Store</a>
+            <a class="sp-badge sp-webgl" href="https://play.dtcpoker.mobi/" target="_blank">🌐 WebGL</a>
+          </span>
+        </li>
+        <li class="game-li">
+          <span class="game-title">Teen Patti: 3 Card Poker Game</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/in/app/teen-patti-royale-gold-league/id6465250543" target="_blank">🍎 Apple</a>
+            <a class="sp-badge sp-play"  href="https://play.google.com/store/apps/details?id=com.dn.games.teenpatti" target="_blank">▶ Play Store</a>
+            <a class="sp-badge sp-webgl" href="https://teenpatti.dynamicnext.com/" target="_blank">🌐 WebGL</a>
+          </span>
+        </li>
+        <li class="game-li">
+          <span class="game-title">Tiny Legends: Epic Merge Wars</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-play"  href="https://play.google.com/store/apps/details?id=com.dn.games.mergewars.tinylegends" target="_blank">▶ Play Store</a>
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/in/app/tiny-legends-rpg-war-game/id6479631220" target="_blank">🍎 Apple</a>
+          </span>
+        </li>
         <li>Designed full game economy including soft/hard currency systems and IAP structures</li>
         <li>Created and maintained GDD and Feature Spec documents for 5+ shipped titles</li>
         <li>Designed daily/weekly challenge systems that measurably improved DAU retention</li>
@@ -1317,8 +1355,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56p
     <div class="np">
       <div class="np-title">🧩 PROJECTS ASSOCIATED & KEY ROLES WITH WEBROS MEDIA</div>
       <ul class="nl">
-        <li><b>Brain King - Puzzle Games [PLAYSTORE / APPLE]</b></li>
-        <li><b>Run Baby Run - Movie Game [PLAYSTORE / APPLE]</b></li>
+        <li class="game-li">
+          <span class="game-title">Brain King — Puzzle Games</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-play"  href="https://play.google.com/store/apps/details?id=com.brainking.animacastproduction&hl=en_IN" target="_blank">▶ Play Store</a>
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/us/app/brain-king-tricky-puzzle-games/id1525357424" target="_blank">🍎 Apple</a>
+          </span>
+        </li>
+        <li class="game-li">
+          <span class="game-title">Run Baby Run — Movie Game</span>
+          <span class="game-platforms">
+            <a class="sp-badge sp-apple" href="https://apps.apple.com/us/app/run-baby-run-movie-game/id1566827625" target="_blank">🍎 Apple</a>
+          </span>
+        </li>
         <li>Developed user personas and player archetypes for targeted feature design</li>
         <li>Conducted UX audits on competitor apps, producing detailed teardown reports</li>
         <li>Applied programming and mathematical logic to build functional interactive systems</li>
@@ -1513,9 +1562,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56p
     <p class="c-sub r">Game Designer with 4+ years experience. Focused on mobile-first systems, F2P economy, and deeply satisfying player loops. Looking forward to connecting on meaningful game projects.</p>
     <div class="c-links r">
       <a href="tel:+919961106993" class="c-link"><span>📞</span> +91 996 110 6993</a>
-      <a href="mailto:fahimmv29@gmail.com?subject=Portfolio%20Inquiry" class="c-link"><span>✉</span><span>fahimmv29@gmail.com</span></a>
+      <a href="/cdn-cgi/l/email-protection#dbbdbab3b2b6b6ade9e29bbcb6bab2b7f5b8b4b6e4a8aeb9b1beb8afe68bb4a9afbdb4b7b2b4fee9eb92b5aaaeb2a9a2" class="c-link"><span>✉</span><span><span class="__cf_email__" data-cfemail="94f2f5fcfdf9f9e2a6add4f3f9f5fdf8baf7fbf9">[email&#160;protected]</span></span></a>
       <a href="https://www.linkedin.com/in/fahim-abdulla-mv-33135b166/" class="c-link" target="_blank" rel="noopener noreferrer"> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;">in</span> LinkedIn </a></div>
-      <a href="mailto:fahimmv29@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Fahim%2C%20I%20came%20across%20your%20portfolio..." class="btn btn-gold r" style="clip-path:none;padding:15px 52px;font-size:11px;"> Send a Message </a>
+      <a href="/cdn-cgi/l/email-protection#8bedeae3e2e6e6fdb9b2cbece6eae2e7a5e8e4e6b4f8fee9e1eee8ffb6dbe4f9ffede4e7e2e4aeb9bbc2e5fafee2f9f2ade9e4eff2b6c3e2aeb9bbcdeae3e2e6aeb9c8aeb9bbc2aeb9bbe8eae6eeaeb9bbeae8f9e4f8f8aeb9bbf2e4fef9aeb9bbfbe4f9ffede4e7e2e4a5a5a5" class="btn btn-gold r" style="clip-path:none;padding:15px 52px;font-size:11px;"> Send a Message </a>
       </div>
 </div>
 </section>
@@ -1526,7 +1575,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:26px 56p
   <span class="f-copy">© 2024 Fahim Abdulla Inc. All rights reserved.</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Cursor
 const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
 let mx=0,my=0,rx=0,ry=0;
@@ -1931,7 +1980,7 @@ window.addEventListener('load', function() {
     thumbs.forEach(thumb => {
       const img = thumb.querySelector('img');
       if (!img) return;
-      thumb.style.cursor = 'zoom-in';
+        thumb.style.cursor = 'zoom-in';
       thumb.addEventListener('click', () => {
         if (!img.naturalWidth) return;
         const allImgs = thumbs
